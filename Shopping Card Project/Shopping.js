@@ -89,3 +89,85 @@ document.getElementById('clear-cart').addEventListener('click', () => {
 
 // Render products when page loads
 window.onload = renderProducts;
+
+function applyPromoCode(promoCode) {
+    let discount = 0;
+    
+    if (promoCode === 'ostad10') {
+        discount = 0.10;  // 10% discount
+    } else if (promoCode === 'ostad5') {
+        discount = 0.05;  // 5% discount
+    } else {
+        showError("Invalid promo code!");
+        return;
+    }
+
+    // Calculate the discount and final total
+    const subtotal = getSubtotal();  // This should be the sum of all item prices in the cart
+    const discountAmount = subtotal * discount;
+    const finalTotal = subtotal - discountAmount;
+
+    // Display the results
+    displayDiscount(discountAmount, finalTotal, subtotal);
+}
+
+function displayDiscount(discountAmount, finalTotal, subtotal) {
+    document.getElementById("discount-amount").textContent = `Discount: $${discountAmount.toFixed(2)}`;
+    document.getElementById("final-total").textContent = `Final Total: $${finalTotal.toFixed(2)}`;
+    document.getElementById("subtotal").textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+}
+
+function validatePromoCode(code) {
+    const validCodes = ['ostad10', 'ostad5'];
+    if (validCodes.includes(code)) {
+        return true;
+    }
+    return false;
+}
+
+function applyPromoCode(promoCode) {
+    if (!validatePromoCode(promoCode)) {
+        showError("Invalid promo code!");
+        return;
+    }
+
+    // If valid, proceed with the discount
+    let discount = promoCode === 'ostad10' ? 0.10 : 0.05;
+    const subtotal = getSubtotal();
+    const discountAmount = subtotal * discount;
+    const finalTotal = subtotal - discountAmount;
+
+    displayDiscount(discountAmount, finalTotal, subtotal);
+}
+
+let promoApplied = false;
+
+function applyPromoCode(promoCode) {
+    if (promoApplied) {
+        showError("Promo code has already been used.");
+        return;
+    }
+    
+    if (!validatePromoCode(promoCode)) {
+        showError("Invalid promo code!");
+        return;
+    }
+
+    promoApplied = true;  // Mark promo code as used
+    // Continue with the discount application
+}
+
+function updateCart() {
+    const subtotal = getSubtotal();  // Recalculate the subtotal based on updated cart
+    const discountAmount = getDiscountAmount(subtotal);
+    const finalTotal = subtotal - discountAmount;
+
+    displayDiscount(discountAmount, finalTotal, subtotal);
+}
+
+function showError(message) {
+    const errorElement = document.getElementById("promo-error");
+    errorElement.textContent = message;
+    errorElement.style.display = "block";
+}
+

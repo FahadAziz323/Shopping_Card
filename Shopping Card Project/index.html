@@ -21,6 +21,33 @@
         <button id="checkout">Checkout</button>
     </div>
 
+    <div class="checkout-summary">
+        <div id="subtotal">Subtotal: $0.00</div>
+        <div id="discount-amount">Discount: $0.00</div>
+        <div id="final-total">Final Total: $0.00</div>
+        <div>
+            <input type="text" id="promo-code" placeholder="Enter promo code">
+            <button onclick="applyPromoCode(document.getElementById('promo-code').value)">Apply</button>
+        </div>
+    </div>
+    
+
+    <div id="promo-error" style="color: red; display: none;"></div>
+
+    <div class="checkout-section">
+        <div class="cart-summary">
+            <p id="subtotal">Subtotal: $100.00</p>
+            <p id="discount-amount">Discount: $0.00</p>
+            <p id="final-total">Final Total: $100.00</p>
+        </div>
+        <div class="promo-code">
+            <input type="text" id="promo-code" placeholder="Enter promo code">
+            <button onclick="applyPromoCode(document.getElementById('promo-code').value)">Apply Promo Code</button>
+        </div>
+        <div id="promo-error" style="color: red; display: none;"></div>
+    </div>
+    
+
     <script src="./Shopping.js"></script>
 </body>
 </html>
